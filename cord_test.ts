@@ -50,15 +50,34 @@ async function main() {
   const { account: authorIdentity } = await createAccount();
   console.log(`🏦  Member (${authorIdentity.type}): ${authorIdentity.address}`);
 
+  console.log("========================= Before txn");
+  
+  console.log(
+    `💰  Member (${authorityAuthorIdentity.type}) balance: ${await getBalance(
+      authorityAuthorIdentity.address,
+      api
+    )}`
+  );
+  
+  console.log(
+    `Member (${authorIdentity.type}) balance: ${await getBalance(
+      authorIdentity.address,
+      api
+    )}`
+  );
+  
+  
   let tx = await api.tx.balances.transferAllowDeath(
     authorIdentity.address,
     new BN("1000000000000000")
   );
   await Cord.Chain.signAndSubmitTx(tx, authorityAuthorIdentity);
+  
+  console.log("========================= After txn");
 
   console.log(
-    `💰  Member (${authorIdentity.type}) balance: ${await getBalance(
-      authorIdentity.address,
+    `💰  Member (${authorityAuthorIdentity.type}) balance: ${await getBalance(
+      authorityAuthorIdentity.address,
       api
     )}`
   );
@@ -68,5 +87,9 @@ async function main() {
         authorIdentity.address,
         api
         )}`
-  )
+  );
 }
+
+main()
+  .then(() => console.log("\nBye! 👋 👋 👋 "))
+  .finally(Cord.disconnect);
