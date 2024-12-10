@@ -1,6 +1,11 @@
 import * as Cord from "@cord.network/sdk"
 import { BN } from "bn.js"
-import { createAccount, getBalance, addNetworkMember } from "./utils"
+import {
+    createAccount,
+    getBalance,
+    addNetworkMember,
+    fetchRegistryEntryDetailsFromChain,
+} from "./utils"
 
 
 async function main() {
@@ -176,6 +181,12 @@ async function main() {
 
     console.log("\n✅ Registry Entry created!", registryEntry)
 
+    // Step 4.5 View the registry entry
+    const RegistryEntryDetails = await fetchRegistryEntryDetailsFromChain(
+        registryEntry
+    )
+    console.log("\n📜 Registry Entry Details: ", RegistryEntryDetails)
+
     // Step 5: Update the registry entry entered
     const updatedEntryBlob = {
         name: "Political Technology Inc.",
@@ -224,6 +235,12 @@ async function main() {
     )
 
     console.log("\n✅ Registry Entry updated!", registryEntryUpdate)
+
+    // Step 5.5 View the updated registry entry
+    const UpdatedRegistryEntryDetails = await fetchRegistryEntryDetailsFromChain(
+        registryEntry
+    )
+    console.log("\n📜 Registry Entry Details: ", UpdatedRegistryEntryDetails)
 }
 
 main()
