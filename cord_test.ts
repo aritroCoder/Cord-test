@@ -27,10 +27,10 @@ async function main() {
     )
 
     // Setup network member account.
-    const { account: authorIdentity } = createAccount()
+    const { account: authorIdentity, mnemonic } = createAccount()
     await addNetworkMember(authorityAuthorIdentity, authorIdentity.address)
     console.log(
-        `🏦  Member (${authorIdentity.type}): ${authorIdentity.address}`
+        `🏦  Member (${authorIdentity.type}): ${authorIdentity.address} with mnemonic: ${mnemonic}`
     )
 
     // Step 2: Transfer funds to the new account.
